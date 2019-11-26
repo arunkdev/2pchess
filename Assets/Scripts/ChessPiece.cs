@@ -6,11 +6,13 @@ using Vector2;
 public abstract class ChessPiece : MonoBehaviour
 {
     private vector2<int> pos;
-    public List<vector2<int>> allpossiblemoves();
+    virtual public List<vector2<int>> allpossiblemoves(ChessPiece[,] matrix);
+    public string team;
 
-    ChessPiece()
+    ChessPiece(int x, int y, string team)
     {
-
+        this.pos = new vector2<int>(x, y);
+        this.team = team; 
     }
 
 
