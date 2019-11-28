@@ -1,19 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Vector2;
+using UnityEngine.UI;
 
-public abstract class ChessPiece : MonoBehaviour
+
+public class ChessPiece : MonoBehaviour
 {
-    private vector2<int> pos;
-    virtual public List<vector2<int>> allpossiblemoves(ChessPiece[,] matrix);
+    public Position pos;
+    virtual public List<Position> allpossiblemoves(ChessPiece[,] matrix) { return null; }
     public string team;
 
-    ChessPiece(int x, int y, string team)
+    public ChessPiece(int x, int y, string team)
     {
-        this.pos = new vector2<int>(x, y);
+        this.pos = new Position(x, y);
         this.team = team; 
     }
 
 
 }
+
