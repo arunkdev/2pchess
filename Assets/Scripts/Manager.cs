@@ -10,10 +10,24 @@ public class Manager : MonoBehaviour
     private int selectionY = -1;
     public List<GameObject> chessmanPrefabs;
     private List<GameObject> activeChessman= new List<GameObject>();
+    private Board board = new Board();
+
 
     private void Start()
     {
-        SpawnChessman(0, GetTileCenter(3,0));
+        for(int x=0;x<8;x++)
+        {
+            for(int y=0;y<8;y++)
+            {
+                ChessPiece chessPiece = this.board.matrix[x, y];
+                if (chessPiece != null) {
+                    
+                    SpawnChessman(chessPiece.asset, GetTileCenter(x, y));
+                }
+            }
+
+        }
+        
     }
     
     private void Update()
@@ -80,7 +94,7 @@ public class Manager : MonoBehaviour
     {
         Vector3 origin = Vector3.zero;
         origin.x += (tileSize * x) + tileOffset;
-        origin.y += (tileSize * y) + tileOffset;
+        origin.z += (tileSize * y) + tileOffset;
         return origin;
     }
 }

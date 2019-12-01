@@ -7,7 +7,13 @@ using UnityEngine.UI;
 public class Pawn : ChessPiece
 {
     bool firstMove = true;
-    public Pawn(int a, int b, string t):base(a, b, t) { }
+    public Pawn(int a, int b, string t):base(a, b, t) 
+    {
+        if (this.team == "black")
+            this.asset = 11;
+        else if (this.team == "white")
+            this.asset = 5;
+    }
     override public List<Position> allpossiblemoves(ChessPiece[,] matrix)
     {
         int x = this.pos.x;

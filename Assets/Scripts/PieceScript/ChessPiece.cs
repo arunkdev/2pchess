@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class ChessPiece : MonoBehaviour
+public class ChessPiece
 {
     public Position pos;
     virtual public List<Position> allpossiblemoves(ChessPiece[,] matrix) { return null; }
     public string team;
+    public int asset = 0 ;
+
 
     public ChessPiece(int x, int y, string team)
     {
