@@ -283,7 +283,7 @@ GameObject:
   m_Layer: 0
   m_Name: ChessBoard
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -312,6 +312,7 @@ MonoBehaviour:
   - {fileID: 3623567182029632446, guid: 88c09c83199c11d4fbe9e0ba13fa36a9, type: 3}
   - {fileID: 5496853031957064574, guid: 1a70232f0cd769547b109718cf536e27, type: 3}
   - {fileID: 5430531079792105777, guid: 436075b69cf4114439dddc06abf0567d, type: 3}
+  - {fileID: 2759224550405973091, guid: b0e68f573dc02e74cbcbdf67fc3cb015, type: 3}
 --- !u!4 &463896759
 Transform:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class Manager : MonoBehaviour
     private int selectionX = -1;
     private int selectionY = -1;
     public List<GameObject> chessmanPrefabs;
-    private List<GameObject> activeChessman= new List<GameObject>();
+    private Dictionary<Position,GameObject> activeChessman= new Dictionary<Position, GameObject>();
     private Board board = new Board();
 
 
@@ -22,7 +22,7 @@ public class Manager : MonoBehaviour
                 ChessPiece chessPiece = this.board.matrix[x, y];
                 if (chessPiece != null) {
                     
-                    SpawnChessman(chessPiece.asset, GetTileCenter(x, y));
+                    SpawnChessman(chessPiece.asset, new Position(x, y));
                 }
             }
 
@@ -69,26 +69,30 @@ public class Manager : MonoBehaviour
     {
         if (!Camera.main)
            return;
-
-        RaycastHit hit;
-        if(Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("ChessPlane")))
-         {
-            selectionX = (int)hit.point.x;
-            selectionY = (int)hit.point.z;
-            
-        }
-        else
+        if (Input.GetMouseButtonDown(0))
         {
-            selectionX = -1;
-            selectionY = -1;
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("ChessPlane")))
+            {
+                selectionX = (int)hit.point.x;
+                selectionY = (int)hit.point.z;
+                this.board.mouseClick(selectionX, selectionY, activeChessman);
+            }
+            else
+            {
+                selectionX = -1;
+                selectionY = -1;
 
+            }
         }
     }
-    private void SpawnChessman (int index, Vector3 position)
+    private void SpawnChessman (int index, Position position)
     {
-        GameObject go = Instantiate(chessmanPrefabs[index], position, Quaternion.identity) as GameObject;
+        Vector3 vector = GetTileCenter(position.x, position.y);
+        GameObject go = Instantiate(chessmanPrefabs[index], vector, Quaternion.identity) as GameObject;
         go.transform.SetParent(transform);
-        activeChessman.Add(go);
+        
+        activeChessman.Add(new Position(position.x, position.y), go);
     }
     private Vector3 GetTileCenter(int x,int y)
     {
