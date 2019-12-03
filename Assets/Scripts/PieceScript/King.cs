@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-
-public class King : ChessPiece
+namespace tw0pchess
 {
-    bool firstMove = true;
-    public King(int a, int b, string t) : base(a, b, t)
+
+    public class King : ChessPiece
     {
-        if (this.team == "black")
-            this.asset = 6;
-        else if (this.team == "white")
-            this.asset = 0;
+        bool firstMove = true;
+        public King(int a, int b, string t) : base(a, b, t)
+        {
+            if (this.team == "black")
+                this.asset = 6;
+            else if (this.team == "white")
+                this.asset = 0;
+        }
+        override public List<Position> allpossiblemoves(ChessPiece[,] matrix)
+        { return null; }
     }
-    override public List<Position> allpossiblemoves(ChessPiece[,] matrix)
-    {return null;}
 }

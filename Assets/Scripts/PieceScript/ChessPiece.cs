@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-
-public class ChessPiece
+namespace tw0pchess
 {
-    public Position pos;
-    virtual public List<Position> allpossiblemoves(ChessPiece[,] matrix) { return null; }
-    public string team;
-    public int asset = 0 ;
 
-
-    public ChessPiece(int x, int y, string team)
+    public class ChessPiece
     {
-        this.pos = new Position(x, y);
-        this.team = team; 
+        public Position pos;
+        virtual public List<Position> allpossiblemoves(ChessPiece[,] matrix) { return null; }
+        public string team;
+        public int asset = 0;
+
+
+        public ChessPiece(int x, int y, string team)
+        {
+            this.pos = new Position(x, y);
+            this.team = team;
+        }
+
+
     }
-
-
 }
-

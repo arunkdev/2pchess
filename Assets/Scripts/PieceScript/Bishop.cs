@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-
-public class Bishop : ChessPiece
+namespace tw0pchess
 {
-    bool firstMove = true;
-    public Bishop(int a, int b, string t) : base(a, b, t)
+
+    public class Bishop : ChessPiece
     {
-        if (this.team == "black")
-            this.asset = 9;
-        else if (this.team == "white")
-            this.asset = 3;
+        bool firstMove = true;
+        public Bishop(int a, int b, string t) : base(a, b, t)
+        {
+            if (this.team == "black")
+                this.asset = 9;
+            else if (this.team == "white")
+                this.asset = 3;
+        }
+        override public List<Position> allpossiblemoves(ChessPiece[,] matrix)
+        { return null; }
     }
-    override public List<Position> allpossiblemoves(ChessPiece[,] matrix)
-    { return null; }
 }

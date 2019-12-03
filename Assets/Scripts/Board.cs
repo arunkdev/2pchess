@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+namespace tw0pchess
 
-
-
-public class Board
 {
-    public ChessPiece[,] matrix;
-
-    public Board()
+    public class Board
     {
-        matrix = new ChessPiece[8, 8]
+        public ChessPiece[,] matrix;
+
+        public Board()
         {
+            matrix = new ChessPiece[8, 8]
+            {
             { new Rook  (0,0,"white"), new Pawn(0,1,"white"), null, null, null, null, new Pawn(0,6,"black"), new Rook  (0,7,"black") },
             { new Knight(1,0,"white"), new Pawn(1,1,"white"), null, null, null, null, new Pawn(1,6,"black"), new Knight(1,7,"black") },
             { new Bishop(2,0,"white"), new Pawn(2,1,"white"), null, null, null, null, new Pawn(2,6,"black"), new Bishop(2,7,"black") },
@@ -21,17 +21,18 @@ public class Board
             { new Bishop(5,0,"white"), new Pawn(5,1,"white"), null, null, null, null, new Pawn(5,6,"black"), new Bishop(5,7,"black") },
             { new Knight(6,0,"white"), new Pawn(6,1,"white"), null, null, null, null, new Pawn(6,6,"black"), new Knight(6,7,"black") },
             { new Rook  (7,0,"white"), new Pawn(7,1,"white"), null, null, null, null, new Pawn(7,6,"black"), new Rook  (7,7,"black") },
-        };
-    }
-    public void mouseClick(int x, int y, Dictionary<Position, GameObject> activeChessman)
-    {
-        ChessPiece chesspiece = this.matrix[x, y];
-        if(chesspiece!=null)
+            };
+        }
+        public void mouseClick(int x, int y, Dictionary<Position, GameObject> activeChessman)
         {
-            List<Position> possibleList = chesspiece.allpossiblemoves(this.matrix);
-            for (var i = 0; i < possibleList.Count; i++)
+            ChessPiece chesspiece = this.matrix[x, y];
+            if (chesspiece != null)
             {
-                Debug.Log("values" + possibleList[i].x.ToString() + " " + possibleList[i].y.ToString());
+                List<Position> possibleList = chesspiece.allpossiblemoves(this.matrix);
+                for (var i = 0; i < possibleList.Count; i++)
+                {
+                    Debug.Log("values" + possibleList[i].x.ToString() + " " + possibleList[i].y.ToString());
+                }
             }
         }
     }
