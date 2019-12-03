@@ -37,15 +37,15 @@ namespace tw0pchess
         {
             updateSelection();
             DrawChessBoard();
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                List<Position> temp = new List<Position>();
+            //if(Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    List<Position> temp = new List<Position>();
                
-                temp.Add(new Position(1, 2));
-                temp.Add(new Position(4, 3));
-                temp.Add(new Position(6, 7));
-                displayPossibleMoves(temp);
-            }
+            //    temp.Add(new Position(1, 2));
+            //    temp.Add(new Position(4, 3));
+            //    temp.Add(new Position(6, 7));
+            //    displayPossibleMoves(temp);
+            //}
 
 
         }
