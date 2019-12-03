@@ -12,6 +12,7 @@ namespace tw0pchess
         public List<GameObject> chessmanPrefabs;
         private Dictionary<Position, GameObject> activeChessman = new Dictionary<Position, GameObject>();
         private Board board = new Board();
+        turn currentTurn = turn.white;
 
 
         private void Start()
@@ -36,6 +37,15 @@ namespace tw0pchess
         {
             updateSelection();
             DrawChessBoard();
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                List<Position> temp = new List<Position>();
+               
+                temp.Add(new Position(1, 2));
+                temp.Add(new Position(4, 3));
+                temp.Add(new Position(6, 7));
+                displayPossibleMoves(temp);
+            }
 
 
         }
@@ -102,6 +112,19 @@ namespace tw0pchess
             origin.x += (tileSize * x) + tileOffset;
             origin.z += (tileSize * y) + tileOffset;
             return origin;
+        }
+        public void switchTurn()
+        {
+            currentTurn = (currentTurn == turn.white) ? turn.black : turn.white;
+        }
+        public void displayPossibleMoves(List <Position> temp)
+        {
+            foreach (Position itr in temp)
+            {
+                Vector3 vector = GetTileCenter(itr.x, itr.y);
+                GameObject temp1 = Instantiate(chessmanPrefabs[12], vector, Quaternion.identity) as GameObject;
+                temp1.transform.SetParent(transform);
+            }
         }
     }
 }

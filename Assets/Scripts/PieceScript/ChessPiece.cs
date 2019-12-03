@@ -10,15 +10,24 @@ namespace tw0pchess
         public Position pos;
         virtual public List<Position> allpossiblemoves(ChessPiece[,] matrix) { return null; }
         public string team;
+        public piececolor myColor;
         public int asset = 0;
 
 
+        public ChessPiece(int x, int y,piececolor Color)
+        {
+            this.pos = new Position(x, y);
+            //this.team = team;
+            this.myColor = Color;
+
+        }
         public ChessPiece(int x, int y, string team)
         {
             this.pos = new Position(x, y);
             this.team = team;
-        }
+            
 
+        }
 
     }
 }
