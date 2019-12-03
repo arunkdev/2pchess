@@ -21,6 +21,7 @@ public class Pawn : ChessPiece
         List <Position> list = new List<Position>();
         if(this.team=="white")
         {
+            
             int NewYPos = y + 1;
             list.Add(new Position(x, NewYPos));
             if(firstMove)
@@ -29,7 +30,7 @@ public class Pawn : ChessPiece
                 list.Add(new Position(x, NewYPos));
 
             }
-            if (matrix[x+1,y+1]!=null)
+            if(x<7 && matrix[x+1,y+1]!=null)
             {
                 if(matrix[x+1,y+1].team=="black")
                 {
@@ -38,7 +39,7 @@ public class Pawn : ChessPiece
                     list.Add(new Position(NewX, NewY));
                 }
             }
-            if (matrix[x - 1, y + 1] != null)
+            if (x>0 && matrix[x - 1, y + 1] != null)
             {
                 if (matrix[x - 1, y + 1].team == "black")
                 {
@@ -60,7 +61,7 @@ public class Pawn : ChessPiece
 
             }
             
-            if (matrix[x + 1, y - 1] != null)
+            if (x<7 && matrix[x + 1, y - 1] != null)
             {
                 if (matrix[x + 1, y - 1].team == "black")
                 {
@@ -69,7 +70,7 @@ public class Pawn : ChessPiece
                     list.Add(new Position(NewX, NewY));
                 }
             }
-            if (matrix[x - 1, y - 1] != null)
+            if (x>0 && matrix[x - 1, y - 1] != null)
             {
                 if (matrix[x - 1, y - 1].team == "black")
                 {

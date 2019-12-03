@@ -25,7 +25,6 @@ public class Board
     }
     public void mouseClick(int x, int y, Dictionary<Position, GameObject> activeChessman)
     {
-        Debug.Log("values"+ x.ToString() + " " + y.ToString());
         ChessPiece chesspiece = this.matrix[x, y];
         if(chesspiece!=null)
         {
