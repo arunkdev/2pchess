@@ -23,17 +23,16 @@ namespace tw0pchess
             { new Rook  (7,0,"white"), new Pawn(7,1,"white"), null, null, null, null, new Pawn(7,6,"black"), new Rook  (7,7,"black") },
             };
         }
-        public void mouseClick(int x, int y, Dictionary<Position, GameObject> activeChessman)
+        public List<Position> mouseClick(int x, int y)
         {
             ChessPiece chesspiece = this.matrix[x, y];
+            List<Position> possibleList = new List<Position>();
             if (chesspiece != null)
             {
-                List<Position> possibleList = chesspiece.allpossiblemoves(this.matrix);
-                for (var i = 0; i < possibleList.Count; i++)
-                {
-                    Debug.Log("values" + possibleList[i].x.ToString() + " " + possibleList[i].y.ToString());
-                }
+                possibleList = chesspiece.allpossiblemoves(this.matrix);
+                return possibleList;
             }
+            return possibleList;
         }
     }
 }

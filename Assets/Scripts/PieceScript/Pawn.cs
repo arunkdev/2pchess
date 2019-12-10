@@ -6,7 +6,7 @@ namespace tw0pchess
 {
     public class Pawn : ChessPiece
     {
-        bool firstMove = true;
+        public bool firstMove = true;
         public Pawn(int a, int b, string t) : base(a, b, t)
         {
             if (this.team == "black")
@@ -24,7 +24,10 @@ namespace tw0pchess
             {
 
                 int NewYPos = y + 1;
-                list.Add(new Position(x, NewYPos));
+                if (matrix[x, y + 1] == null)
+                    list.Add(new Position(x, NewYPos));
+
+
                 if (firstMove)
                 {
                     NewYPos = NewYPos + 1;
@@ -49,23 +52,23 @@ namespace tw0pchess
                         list.Add(new Position(NewX, NewY));
                     }
                 }
-
             }
 #endregion
+            #region black possible moves
             if (this.team == "black")
             {
                 int NewYPos = y - 1;
-                list.Add(new Position(x, NewYPos));
+                if (matrix[x, y - 1] == null)
+                    list.Add(new Position(x, NewYPos));
                 if (firstMove)
                 {
                     NewYPos = NewYPos - 1;
                     list.Add(new Position(x, NewYPos));
-
                 }
 
                 if (x < 7 && matrix[x + 1, y - 1] != null)
                 {
-                    if (matrix[x + 1, y - 1].team == "black")
+                    if (matrix[x + 1, y - 1].team == "white")
                     {
                         int NewY = y - 1;
                         int NewX = x + 1;
@@ -74,7 +77,7 @@ namespace tw0pchess
                 }
                 if (x > 0 && matrix[x - 1, y - 1] != null)
                 {
-                    if (matrix[x - 1, y - 1].team == "black")
+                    if (matrix[x - 1, y - 1].team == "white")
                     {
                         int NewY = y - 1;
                         int NewX = x - 1;
@@ -82,6 +85,7 @@ namespace tw0pchess
                     }
                 }
             }
+            #endregion
 
             return list;
         }

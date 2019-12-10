@@ -16,6 +16,6 @@ namespace tw0pchess
                 this.asset = 4;
         }
         override public List<Position> allpossiblemoves(ChessPiece[,] matrix)
-        { return null; }
+        { return new List<Position>(); }
     }
 }

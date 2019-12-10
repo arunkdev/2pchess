@@ -13,6 +13,10 @@ namespace tw0pchess
         private Dictionary<Position, GameObject> activeChessman = new Dictionary<Position, GameObject>();
         private Board board = new Board();
         turn currentTurn = turn.white;
+        string state = "WhiteStart";
+        List<Position> positions;
+        private List<GameObject> activeMoves = new List<GameObject>();
+        Position currentPosition=null;
 
 
         private void Start()
@@ -37,17 +41,7 @@ namespace tw0pchess
         {
             updateSelection();
             DrawChessBoard();
-            //if(Input.GetKeyDown(KeyCode.Space))
-            //{
-            //    List<Position> temp = new List<Position>();
-               
-            //    temp.Add(new Position(1, 2));
-            //    temp.Add(new Position(4, 3));
-            //    temp.Add(new Position(6, 7));
-            //    displayPossibleMoves(temp);
-            //}
-
-
+            
         }
         private void DrawChessBoard()
         {
@@ -88,7 +82,109 @@ namespace tw0pchess
                 {
                     selectionX = (int)hit.point.x;
                     selectionY = (int)hit.point.z;
-                    this.board.mouseClick(selectionX, selectionY, activeChessman);
+                    Position clickSpot = new Position(selectionX, selectionY);
+                    switch (state){
+                        case "WhiteStart":
+                            if(this.board.matrix[selectionX, selectionY] != null && this.board.matrix[selectionX,selectionY].team=="white")
+                            {
+                                currentPosition = new Position(selectionX, selectionY);
+                                positions = this.board.mouseClick(selectionX, selectionY);
+                                this.displayPossibleMoves(positions);
+                                state = "WhiteSelection";
+                            }
+                            break;
+
+                        case "WhiteSelection":
+                            if (positions.Contains(clickSpot))
+                            {
+                                Vector3 vector = GetTileCenter(selectionX,selectionY);
+                                GameObject go = activeChessman[currentPosition];
+                                go.transform.position = vector;
+                                foreach (GameObject item in activeMoves)
+                                    Destroy(item);
+                                activeMoves = new List<GameObject>();
+                                activeChessman[currentPosition] = null;
+                                if (this.activeChessman.ContainsKey(clickSpot))
+                                {
+                                    GameObject pieceToDestroy = this.activeChessman[clickSpot];
+                                    Destroy(pieceToDestroy);
+                                    activeChessman.Remove(clickSpot);
+                                }
+                                activeChessman.Add(new Position(selectionX, selectionY), go);
+                                this.board.matrix[selectionX, selectionY] = this.board.matrix[currentPosition.x, currentPosition.y];
+                                this.board.matrix[selectionX, selectionY].pos = clickSpot;
+                                this.board.matrix[currentPosition.x, currentPosition.y] = null;
+                                if(this.board.matrix[selectionX, selectionY].GetType() == typeof(Pawn))
+                                {
+                                    Pawn p = this.board.matrix[selectionX, selectionY] as Pawn;
+                                    p.firstMove = false;
+                                }
+                                currentPosition = null;
+                                state = "BlackStart";
+                                /*Camera.main.transform*/
+                            }
+                            else
+                            {
+                                foreach (GameObject item in activeMoves)
+                                    Destroy(item);
+                                activeMoves = new List<GameObject>();
+                                state = "WhiteStart";
+                            }
+                            break;
+
+                        case "BlackStart":
+                            if (this.board.matrix[selectionX, selectionY] != null && this.board.matrix[selectionX, selectionY].team == "black")
+                            {
+                                currentPosition = new Position(selectionX, selectionY);
+                                positions = this.board.mouseClick(selectionX, selectionY);
+                                this.displayPossibleMoves(positions);
+                                state = "BlackSelection";
+                            }
+                            break;
+
+                        case "BlackSelection":
+                            if (positions.Contains(clickSpot))
+                            {
+                                Vector3 vector = GetTileCenter(selectionX, selectionY);
+                                GameObject go = activeChessman[currentPosition];
+                                go.transform.position = vector;
+                                foreach (GameObject item in activeMoves)
+                                    Destroy(item);
+                                activeMoves = new List<GameObject>();
+                                activeChessman[currentPosition] = null;
+                                if (this.activeChessman.ContainsKey(clickSpot))
+                                {
+                                    GameObject pieceToDestroy = this.activeChessman[clickSpot];
+                                    Destroy(pieceToDestroy);
+                                    activeChessman.Remove(clickSpot);
+                                }
+                                activeChessman.Add(new Position(selectionX, selectionY), go);
+                                this.board.matrix[selectionX, selectionY] = this.board.matrix[currentPosition.x, currentPosition.y];
+                                this.board.matrix[selectionX, selectionY].pos = clickSpot;
+                                this.board.matrix[currentPosition.x, currentPosition.y] = null;
+                                if (this.board.matrix[selectionX, selectionY].GetType() == typeof(Pawn))
+                                {
+                                    Pawn p = this.board.matrix[selectionX, selectionY] as Pawn;
+                                    p.firstMove = false;
+                                }
+                                currentPosition = null;
+                                state = "WhiteStart";
+                            }
+                            else
+                            {
+                                foreach (GameObject item in activeMoves)
+                                    Destroy(item);
+                                activeMoves = new List<GameObject>();
+                                state = "BlackStart";
+                            }
+                            break;
+
+                        default:
+                            break;
+
+                    }
+                    
+
                 }
                 else
                 {
@@ -124,6 +220,7 @@ namespace tw0pchess
                 Vector3 vector = GetTileCenter(itr.x, itr.y);
                 GameObject temp1 = Instantiate(chessmanPrefabs[12], vector, Quaternion.identity) as GameObject;
                 temp1.transform.SetParent(transform);
+                activeMoves.Add(temp1);
             }
         }
     }
