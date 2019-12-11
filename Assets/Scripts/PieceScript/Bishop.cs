@@ -22,25 +22,25 @@ namespace tw0pchess
 
 
             List<Position> list = new List<Position>();
-            bool canMoveUp = true;
-            bool canMoveDown = true;
+            bool canMoveUpRight = true;
+            bool canMoveDownLeft = true;
             bool canMoveRightDown = true;
             bool canMoveLeftUp = true;
             for (int a = 1; a <= 7; a++)
             {
-                if ((y + a <= 7) && (x + a <= 7) && canMoveUp)
+                if ((y + a <= 7) && (x + a <= 7) && canMoveUpRight)
                 {
                     Position pos = new Position(x+a, y + a);
                     if (matrix[pos.x, pos.y] == null) { list.Add(pos); }
-                    else if (matrix[pos.x, pos.y].team == this.team) { canMoveUp = false; }
-                    else if (matrix[pos.x, pos.y].team != this.team) { list.Add(pos); canMoveUp = false; }
+                    else if (matrix[pos.x, pos.y].team == this.team) { canMoveUpRight = false; }
+                    else if (matrix[pos.x, pos.y].team != this.team) { list.Add(pos); canMoveUpRight = false; }
                 }
-                if ((y - a >= 0) && (x - a >= 0) && canMoveDown)
+                if ((y - a >= 0) && (x - a >= 0) && canMoveDownLeft)
                 {
                     Position pos = new Position(x - a, y - a);
                     if (matrix[pos.x, pos.y] == null) { list.Add(pos); }
-                    else if (matrix[pos.x, pos.y].team == this.team) { canMoveDown = false; }
-                    else if (matrix[pos.x, pos.y].team != this.team) { list.Add(pos); canMoveDown = false; }
+                    else if (matrix[pos.x, pos.y].team == this.team) { canMoveDownLeft = false; }
+                    else if (matrix[pos.x, pos.y].team != this.team) { list.Add(pos); canMoveDownLeft = false; }
                 }
                 if ((x + a <= 7) && (y - a >= 0) && canMoveRightDown)
                 {
